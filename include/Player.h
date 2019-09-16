@@ -8,11 +8,12 @@
 
 #include "GameObject.h"
 #include "cinder/gl/gl.h"
+#include "cinder/Area.h"
 
 class Player : public GameObject{
 
 public:
-    Player(int x, int y, int scaleFactor);
+    Player(int x, int y, float scaleFactor);
 
     ~Player() override;
 
@@ -42,35 +43,40 @@ private:
 public:
     class head_{
     public:
-        int x;
-        int y;
+        ci::ivec2 position;
+//        int x;
+//        int y;
         int radius;
         ci::Color colour;
     };
     class body_{
     public:
-        int w;
-        int h;
+        ci::ivec2 size;
+//        int w;
+//        int h;
         int roundCorners;
         ci::Color colour;
     };
     class leg_{
     public:
-        int w;
-        int h;
+        ci::ivec2 size;
+//        int w;
+//        int h;
         int roundCorners;
         ci::Color colour;
     };
     class foot_{
     public:
-        int diameterX;
-        int diameterY;
+        ci::ivec2 diameter;
+//        int diameterX;
+//        int diameterY;
         ci::Color colour;
     };
     class arm_{
     public:
-        int w;
-        int h;
+        ci::ivec2 size;
+//        int w;
+//        int h;
         int roundCorners;
         ci::Color colour;
     };
@@ -88,7 +94,5 @@ public:
     hand_ hand;
 
 };
-
-
 
 #endif //ITP1_GAME_CPP_PLAYER_H

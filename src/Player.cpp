@@ -13,14 +13,15 @@
 
 using namespace ci;
 
-Player::Player(int x, int y, int scaleFactor):
+Player::Player(int x, int y, float scaleFactor):
         GameObject{x, y, scaleFactor},
-        head{0, -65, 16, ci::Color{0.0f, 0.78f, 1.0f}},
-        body{ 10, 26, 3, ci::Color{1.0f, 0.39f, 0.0f}},
-        leg{ 3, 12, 3, ci::Color{0.27f, 0.35f, 0.65f}},
-        arm{ 3, 12, 1, ci::Color{0.88f, 0.63f, 0.0f}},
-        foot{ 4, 2, ci::Color{0.78f, 0.0f, 0.20f}},
-        hand{ 3 , ci::Color{0.0f, 0.78f, 1.0f}}{
+        head{ ci::ivec2{0, -65}, 16, ci::Color{0.0f, 0.78f, 1.0f}},
+        body{ ci::ivec2{ 10, 26}, 3, ci::Color{1.0f, 0.39f, 0.0f}},
+        leg{ ci::ivec2(3, 12), 3, ci::Color{0.27f, 0.35f, 0.65f}},
+        arm{ ci::ivec2( 3, 12), 1, ci::Color{0.88f, 0.63f, 0.0f}},
+        foot{ ci::ivec2( 4, 2) , ci::Color{0.78f, 0.0f, 0.20f}},
+        hand{ 3 , ci::Color{0.0f, 0.78f, 1.0f}},
+        padding{1}{
 
     TRACE("player object created")
 
@@ -54,16 +55,16 @@ void Player::drawFrontFacing(){
 
     TRACE("draw head")
     gl::color( head.colour );
-    gl::drawSolidCircle(vec2{ head.x, head.y}, head.radius);
+    gl::drawSolidCircle(vec2{ head.position.x, head.position.y}, head.radius);
 
     TRACE("draw body")
     gl::color( body.colour);
     gl::drawSolidRoundedRect(
             ci::Rectf(
-                    x - body.w / 2 * scaleFactor,
-                    y + (head.y + head.radius + padding) * scaleFactor,
-                    body.w,
-                    body.h
+                    head.position.x - body.size.x / 2 * scaleFactor,
+                    head.position.y + (head.position.y + head.radius + padding) * scaleFactor,
+                    body.size.x,
+                    body.size.y
             ),
             body.roundCorners
     );
