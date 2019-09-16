@@ -5,7 +5,8 @@
 #ifndef ITP1_GAME_CPP_GAME_H
 #define ITP1_GAME_CPP_GAME_H
 
-
+#include <vector>
+#include <memory>
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
@@ -27,18 +28,22 @@ public:
     // See also: keyUp.
     void keyDown( KeyEvent event ) override;
 
-    //void update() override;
+    void setup() override;
+
+    void update() override;
 
     // Cinder will call 'draw' each time the contents of the window need to be redrawn.
     void draw() override;
 
+    void cleanup() override;
+
 private:
     // This will maintain a list of points which we will draw line segments between
-    //std::vector<vec2> mPoints;
+
+    std::vector<std::unique_ptr<GameObject>> gameObjects;
 
     int floorPosY;
 
-    Player player;
 };
 
 

@@ -2,12 +2,16 @@
 // Created by deedeeaar on 15/09/2019.
 //
 
+#include <algorithm>
 #include "Game.h"
 
 Game::Game(): App(),
-              floorPosY{this->getWindowHeight() * 3/4},
-              player{this->getWindowWidth()/2, floorPosY, 100}{
+              floorPosY{this->getWindowHeight() * 3/4}{
 
+    gameObjects.push_back(
+            std::unique_ptr<GameObject>(
+                    new Player(this->getWindowWidth()/2, floorPosY, 100))
+            );
 }
 
 //Game::Game(){}
@@ -37,11 +41,19 @@ void Game::keyDown( KeyEvent event )
             quit();
     }
 }
-//
-//void Game::update(){
-//
-//}
-//
+
+void Game::setup() {
+    std::for_each(gameObjects.begin(), gameObjects.end(), [](std::unique_ptr<GameObject> &ptr){
+        ptr->setup();
+    });
+}
+
+void Game::update(){
+    std::for_each(gameObjects.begin(), gameObjects.end(), [](std::unique_ptr<GameObject> &ptr){
+        ptr->update();
+    });
+}
+
 void Game::draw()
 {
     // Clear the contents of the window. This call will clear
@@ -52,5 +64,15 @@ void Game::draw()
     gl::color( 0.0f, 0.75f, 0.0f );
     gl::drawSolidRect(Rectf(0, floorPosY, this->getWindowWidth(), this->getWindowHeight()));
 
-    player.draw();
+    //draw
+    std::for_each(gameObjects.begin(), gameObjects.end(), [](std::unique_ptr<GameObject> &ptr){
+        ptr->draw();
+    });
+
+}
+
+void Game::cleanup(){
+    std::for_each(gameObjects.begin(), gameObjects.end(), [](std::unique_ptr<GameObject> &ptr){
+        ptr->cleanup();
+    });
 }

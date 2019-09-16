@@ -12,15 +12,17 @@
 class Player : public GameObject{
 
 public:
-    Player(int x, int y, int size);
+    Player(int x, int y, int scaleFactor);
 
+    ~Player() override;
 
+    void setup() override;
 
     void draw() override ;
 
     void update() override;
 
-    void clean() override;
+    void cleanup() override;
 
 
 

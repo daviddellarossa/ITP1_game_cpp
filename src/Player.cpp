@@ -8,11 +8,13 @@
 #include <iostream>
 #include "cinder/app/RendererGl.h"
 #include "cinder/app/App.h"
+#include "common.h"
+
 
 using namespace ci;
 
-Player::Player(int x, int y, int size):
-        GameObject{x, y, size},
+Player::Player(int x, int y, int scaleFactor):
+        GameObject{x, y, scaleFactor},
         head{0, -65, 16, ci::Color{0.0f, 0.78f, 1.0f}},
         body{ 10, 26, 3, ci::Color{1.0f, 0.39f, 0.0f}},
         leg{ 3, 12, 3, ci::Color{0.27f, 0.35f, 0.65f}},
@@ -20,218 +22,235 @@ Player::Player(int x, int y, int size):
         foot{ 4, 2, ci::Color{0.78f, 0.0f, 0.20f}},
         hand{ 3 , ci::Color{0.0f, 0.78f, 1.0f}}{
 
+    TRACE("player object created")
+
+}
+
+Player::~Player(){
+    TRACE("player object destroyed")
+
+}
+
+void Player::setup(){
+    TRACE("setup player")
+
 }
 
 void Player::draw() {
-    std::cout << "draw player" << std::endl;
+    TRACE("draw player")
     drawFrontFacing();
 }
 
 void Player::update() {
-    std::cout << "update player" << std::endl;
+    TRACE("update player")
 }
 
-void Player::clean() {
-    std::cout << "clean player" << std::endl;
+void Player::cleanup() {
+    TRACE("cleanup player")
 }
 
 void Player::drawFrontFacing(){
-    std::cout << "draw front facing" << std::endl;
+    TRACE("draw front facing")
 
-    std::cout << "draw head" << std::endl;
+    TRACE("draw head")
     gl::color( head.colour );
     gl::drawSolidCircle(vec2{ head.x, head.y}, head.radius);
 
-    std::cout << "draw body" << std::endl;
+    TRACE("draw body")
     gl::color( body.colour);
     gl::drawSolidRoundedRect(
             ci::Rectf(
-                    x - body.w/2 * size,
-                    y + (head.y + head.radius + padding) * size,
+                    x - body.w / 2 * scaleFactor,
+                    y + (head.y + head.radius + padding) * scaleFactor,
                     body.w,
                     body.h
             ),
             body.roundCorners
     );
-    std::cout << "draw left upper leg" << std::endl;
+    TRACE("draw left upper leg")
 
-    std::cout << "draw left lower leg" << std::endl;
+    TRACE("draw left lower leg")
 
-    std::cout << "draw left foot" << std::endl;
+    TRACE("draw left foot")
 
-    std::cout << "draw right upper leg" << std::endl;
+    TRACE("draw right upper leg")
 
-    std::cout << "draw right lower leg" << std::endl;
+    TRACE("draw right lower leg")
 
-    std::cout << "draw right foot" << std::endl;
+    TRACE("draw right foot")
 
-    std::cout << "draw left upper arm" << std::endl;
+    TRACE("draw left upper arm")
 
-    std::cout << "draw left lower arm" << std::endl;
+    TRACE("draw left lower arm")
 
-    std::cout << "draw left hand" << std::endl;
+    TRACE("draw left hand")
 
-    std::cout << "draw right upper arm" << std::endl;
+    TRACE("draw right upper arm")
 
-    std::cout << "draw right lower arm" << std::endl;
+    TRACE("draw right lower arm")
 
-    std::cout << "draw right hand" << std::endl;
+    TRACE("draw right hand")
 
 }
 void Player::drawWalkingRight(){
-    std::cout << "draw walking right" << std::endl;
-    std::cout << "draw head" << std::endl;
+    TRACE("draw walking right")
 
-    std::cout << "draw body" << std::endl;
+    TRACE("draw head")
 
-    std::cout << "draw left upper leg" << std::endl;
+    TRACE("draw body")
 
-    std::cout << "draw left lower leg" << std::endl;
+    TRACE("draw left upper leg")
 
-    std::cout << "draw left foot" << std::endl;
+    TRACE("draw left lower leg")
 
-    std::cout << "draw right upper leg" << std::endl;
+    TRACE("draw left foot")
 
-    std::cout << "draw right lower leg" << std::endl;
+    TRACE("draw right upper leg")
 
-    std::cout << "draw right foot" << std::endl;
+    TRACE("draw right lower leg")
 
-    std::cout << "draw left upper arm" << std::endl;
+    TRACE("draw right foot")
 
-    std::cout << "draw left lower arm" << std::endl;
+    TRACE("draw left upper arm")
 
-    std::cout << "draw left hand" << std::endl;
+    TRACE("draw left lower arm")
 
-    std::cout << "draw right upper arm" << std::endl;
+    TRACE("draw left hand")
 
-    std::cout << "draw right lower arm" << std::endl;
+    TRACE("draw right upper arm")
 
-    std::cout << "draw right hand" << std::endl;
+    TRACE("draw right lower arm")
+
+    TRACE("draw right hand")
 
 
 }
 void Player::drawWalkingLeft(){
-    std::cout << "draw walking left" << std::endl;
-    std::cout << "draw head" << std::endl;
+    TRACE("draw walking left")
 
-    std::cout << "draw body" << std::endl;
+    TRACE("draw head")
 
-    std::cout << "draw left upper leg" << std::endl;
+    TRACE("draw body")
 
-    std::cout << "draw left lower leg" << std::endl;
+    TRACE("draw left upper leg")
 
-    std::cout << "draw left foot" << std::endl;
+    TRACE("draw left lower leg")
 
-    std::cout << "draw right upper leg" << std::endl;
+    TRACE("draw left foot")
 
-    std::cout << "draw right lower leg" << std::endl;
+    TRACE("draw right upper leg")
 
-    std::cout << "draw right foot" << std::endl;
+    TRACE("draw right lower leg")
 
-    std::cout << "draw left upper arm" << std::endl;
+    TRACE("draw right foot")
 
-    std::cout << "draw left lower arm" << std::endl;
+    TRACE("draw left upper arm")
 
-    std::cout << "draw left hand" << std::endl;
+    TRACE("draw left lower arm")
 
-    std::cout << "draw right upper arm" << std::endl;
+    TRACE("draw left hand")
 
-    std::cout << "draw right lower arm" << std::endl;
+    TRACE("draw right upper arm")
 
-    std::cout << "draw right hand" << std::endl;
+    TRACE("draw right lower arm")
+
+    TRACE("draw right hand")
 
 
 }
 void Player::drawJumpingFront(){
-    std::cout << "draw jumping front" << std::endl;
-    std::cout << "draw head" << std::endl;
+    TRACE("draw jumping front")
 
-    std::cout << "draw body" << std::endl;
+    TRACE("draw head")
 
-    std::cout << "draw left upper leg" << std::endl;
+    TRACE("draw body")
 
-    std::cout << "draw left lower leg" << std::endl;
+    TRACE("draw left upper leg")
 
-    std::cout << "draw left foot" << std::endl;
+    TRACE("draw left lower leg")
 
-    std::cout << "draw right upper leg" << std::endl;
+    TRACE("draw left foot")
 
-    std::cout << "draw right lower leg" << std::endl;
+    TRACE("draw right upper leg")
 
-    std::cout << "draw right foot" << std::endl;
+    TRACE("draw right lower leg")
 
-    std::cout << "draw left upper arm" << std::endl;
+    TRACE("draw right foot")
 
-    std::cout << "draw left lower arm" << std::endl;
+    TRACE("draw left upper arm")
 
-    std::cout << "draw left hand" << std::endl;
+    TRACE("draw left lower arm")
 
-    std::cout << "draw right upper arm" << std::endl;
+    TRACE("draw left hand")
 
-    std::cout << "draw right lower arm" << std::endl;
+    TRACE("draw right upper arm")
 
-    std::cout << "draw right hand" << std::endl;
+    TRACE("draw right lower arm")
+
+    TRACE("draw right hand")
 
 }
 void Player::drawJumpingRight(){
-    std::cout << "draw jumping right" << std::endl;
-    std::cout << "draw head" << std::endl;
+    TRACE("draw jumping right")
 
-    std::cout << "draw body" << std::endl;
+    TRACE("draw head")
 
-    std::cout << "draw left upper leg" << std::endl;
+    TRACE("draw body")
 
-    std::cout << "draw left lower leg" << std::endl;
+    TRACE("draw left upper leg")
 
-    std::cout << "draw left foot" << std::endl;
+    TRACE("draw left lower leg")
 
-    std::cout << "draw right upper leg" << std::endl;
+    TRACE("draw left foot")
 
-    std::cout << "draw right lower leg" << std::endl;
+    TRACE("draw right upper leg")
 
-    std::cout << "draw right foot" << std::endl;
+    TRACE("draw right lower leg")
 
-    std::cout << "draw left upper arm" << std::endl;
+    TRACE("draw right foot")
 
-    std::cout << "draw left lower arm" << std::endl;
+    TRACE("draw left upper arm")
 
-    std::cout << "draw left hand" << std::endl;
+    TRACE("draw left lower arm")
 
-    std::cout << "draw right upper arm" << std::endl;
+    TRACE("draw left hand")
 
-    std::cout << "draw right lower arm" << std::endl;
+    TRACE("draw right upper arm")
 
-    std::cout << "draw right hand" << std::endl;
+    TRACE("draw right lower arm")
+
+    TRACE("draw right hand")
 
 }
 void Player::drawJumpingLeft(){
-    std::cout << "draw jumping left" << std::endl;
-    std::cout << "draw head" << std::endl;
+    TRACE("draw jumping left")
 
-    std::cout << "draw body" << std::endl;
+    TRACE("draw head")
 
-    std::cout << "draw left upper leg" << std::endl;
+    TRACE("draw body")
 
-    std::cout << "draw left lower leg" << std::endl;
+    TRACE("draw left upper leg")
 
-    std::cout << "draw left foot" << std::endl;
+    TRACE("draw left lower leg")
 
-    std::cout << "draw right upper leg" << std::endl;
+    TRACE("draw left foot")
 
-    std::cout << "draw right lower leg" << std::endl;
+    TRACE("draw right upper leg")
 
-    std::cout << "draw right foot" << std::endl;
+    TRACE("draw right lower leg")
 
-    std::cout << "draw left upper arm" << std::endl;
+    TRACE("draw right foot")
 
-    std::cout << "draw left lower arm" << std::endl;
+    TRACE("draw left upper arm")
 
-    std::cout << "draw left hand" << std::endl;
+    TRACE("draw left lower arm")
 
-    std::cout << "draw right upper arm" << std::endl;
+    TRACE("draw left hand")
 
-    std::cout << "draw right lower arm" << std::endl;
+    TRACE("draw right upper arm")
 
-    std::cout << "draw right hand" << std::endl;
+    TRACE("draw right lower arm")
+
+    TRACE("draw right hand")
 
 }
