@@ -13,18 +13,29 @@
 class GameObject {
 public:
 
-    GameObject(int x, int y, float scaleFactor) : position(x, y), scaleFactor{scaleFactor}, speed{0}, ground{y}{}
+    GameObject(float x, float y, float scaleFactor) :
+        position(x, y),
+        scaleFactor{scaleFactor},
+        velocity{0, 0},
+        ground{y}
+        {}
+
     virtual void setup() = 0;
-    virtual void update() = 0;
     virtual void draw() = 0;
     virtual void cleanup() = 0;
     virtual ~GameObject() = default;
 
+    virtual void update(){
+        velocity += acceleration;
+        position += velocity;
+    }
+
 protected:
-    ci::ivec2 position;
+    ci::vec2 position;
     float scaleFactor;
-    ci::ivec2 speed;
-    int ground;
+    ci::vec2 velocity;
+    ci::vec2 acceleration;
+    float ground;
 
 };
 

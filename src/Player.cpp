@@ -13,13 +13,13 @@
 
 using namespace ci;
 
-Player::Player(int x, int y, float scaleFactor):
+Player::Player(float x, float y, float scaleFactor):
         GameObject{x, y, scaleFactor},
-        head{ ci::ivec2{0, -65}, 16, ci::Color{0.0f, 0.78f, 1.0f}},
-        body{ ci::ivec2{ 10, 26}, 3, ci::Color{1.0f, 0.39f, 0.0f}},
-        leg{ ci::ivec2(3, 12), 3, ci::Color{0.27f, 0.35f, 0.65f}},
-        arm{ ci::ivec2( 3, 12), 1, ci::Color{0.88f, 0.63f, 0.0f}},
-        foot{ ci::ivec2( 4, 2) , ci::Color{0.78f, 0.0f, 0.20f}},
+        head{ ci::vec2{0, -65}, 16, ci::Color{0.0f, 0.78f, 1.0f}},
+        body{ ci::vec2{ 10, 26}, 3, ci::Color{1.0f, 0.39f, 0.0f}},
+        leg{ ci::vec2(3, 12), 3, ci::Color{0.27f, 0.35f, 0.65f}},
+        arm{ ci::vec2( 3, 12), 1, ci::Color{0.88f, 0.63f, 0.0f}},
+        foot{ ci::vec2( 4, 2) , ci::Color{0.78f, 0.0f, 0.20f}},
         hand{ 3 , ci::Color{0.0f, 0.78f, 1.0f}},
         padding{1}{
 

@@ -13,7 +13,7 @@
 class Player : public GameObject{
 
 public:
-    Player(int x, int y, float scaleFactor);
+    Player(float x, float y, float scaleFactor);
 
     ~Player() override;
 
@@ -25,13 +25,9 @@ public:
 
     void cleanup() override;
 
-
-
 private:
 
-
-    int padding;
-
+    float padding;
 
     void drawFrontFacing();
     void drawWalkingRight();
@@ -43,40 +39,30 @@ private:
 public:
     class head_{
     public:
-        ci::ivec2 position;
-//        int x;
-//        int y;
+        ci::vec2 position;
         int radius;
         ci::Color colour;
     };
     class body_{
     public:
-        ci::ivec2 size;
-//        int w;
-//        int h;
+        ci::vec2 size;
         int roundCorners;
         ci::Color colour;
     };
     class leg_{
     public:
-        ci::ivec2 size;
-//        int w;
-//        int h;
+        ci::vec2 size;
         int roundCorners;
         ci::Color colour;
     };
     class foot_{
     public:
-        ci::ivec2 diameter;
-//        int diameterX;
-//        int diameterY;
+        ci::vec2 diameter;
         ci::Color colour;
     };
     class arm_{
     public:
-        ci::ivec2 size;
-//        int w;
-//        int h;
+        ci::vec2 size;
         int roundCorners;
         ci::Color colour;
     };
