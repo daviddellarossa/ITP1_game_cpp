@@ -40,19 +40,23 @@ public:
     class head_{
     public:
         ci::vec2 position;
-        int radius;
+        float radius;
         ci::Color colour;
     };
     class body_{
     public:
-        ci::vec2 size;
-        int roundCorners;
+        ci::Rectf bbox;
+        //ci::vec2 size;
+        //ci::vec2 position;
+        float roundCorners;
         ci::Color colour;
     };
     class leg_{
     public:
-        ci::vec2 size;
-        int roundCorners;
+        ci::Rectf bbox;
+        //ci::vec2 size;
+        //ci::vec2 position;
+        float roundCorners;
         ci::Color colour;
     };
     class foot_{
@@ -63,18 +67,21 @@ public:
     class arm_{
     public:
         ci::vec2 size;
-        int roundCorners;
+        float roundCorners;
         ci::Color colour;
     };
     class hand_{
     public:
-        int diameter;
+        float diameter;
         ci::Color colour;
     };
 
     head_ head;
     body_ body;
-    leg_ leg;
+    leg_ ru_leg;
+    leg_ rl_leg;
+    leg_ lu_leg;
+    leg_ ll_leg;
     arm_ arm;
     foot_ foot;
     hand_ hand;

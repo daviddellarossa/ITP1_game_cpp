@@ -10,7 +10,7 @@ Game::Game(): App(),
 
     gameObjects.push_back(
             std::unique_ptr<GameObject>(
-                    new Player(this->getWindowWidth()/2, floorPosY, 100))
+                    new Player(this->getWindowWidth()/2, floorPosY, 2))
             );
 }
 
