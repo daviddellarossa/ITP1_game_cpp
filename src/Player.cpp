@@ -17,13 +17,22 @@ Player::Player(float x, float y, float scaleFactor):
         GameObject{x, y, scaleFactor},
         head{ ci::vec2{0, -88}, 11, ci::Color{0.0f, 0.1f, 1.0f}},
         body{ ci::Rectf{ vec2{-7, -40}, vec2{ 7, -76}}, 3, ci::Color{1.0f, 0.39f, 0.0f}},
-        lu_leg{ ci::Rectf{ vec2{-6, -22}, vec2{ -2, -37}}, 3, ci::Color{0.27f, 0.35f, 0.65f}},
-        ll_leg{ ci::Rectf{ci::vec2(-6, -4), ci::vec2(-2, -21)}, 3, ci::Color{0.27f, 0.35f, 0.65f}},
-        ru_leg{ ci::Rectf{ci::vec2(2, -22), ci::vec2(6, -37)}, 3, ci::Color{0.27f, 0.35f, 0.65f}},
-        rl_leg{ ci::Rectf{ci::vec2(2, -4), ci::vec2(6, -21)}, 3, ci::Color{0.27f, 0.35f, 0.65f}},
-        arm{ ci::vec2( 3, 12), 1, ci::Color{0.88f, 0.63f, 0.0f}},
-        foot{ ci::vec2( 4, 2) , ci::Color{0.78f, 0.0f, 0.20f}},
-        hand{ 3 , ci::Color{0.0f, 0.78f, 1.0f}},
+        lu_leg{ ci::Rectf{ vec2{-6, -21}, vec2{ -2, -39}}, 3, ci::Color{0.27f, 0.35f, 0.65f}},
+        ll_leg{ ci::Rectf{ci::vec2(-6, -3), ci::vec2(-2, -20)}, 3, ci::Color{0.27f, 0.35f, 0.65f}},
+        l_foot{ ci::vec2(-4, -1), ci::vec2( 3, 1) , ci::Color{0.78f, 0.0f, 0.20f}},
+
+        ru_leg{ ci::Rectf{ci::vec2(2, -21), ci::vec2(6, -39)}, 3, ci::Color{0.27f, 0.35f, 0.65f}},
+        rl_leg{ ci::Rectf{ci::vec2(2, -3), ci::vec2(6, -20)}, 3, ci::Color{0.27f, 0.35f, 0.65f}},
+        r_foot{ ci::vec2(4, -1), ci::vec2( 3, 1) , ci::Color{0.78f, 0.0f, 0.20f}},
+
+        lu_arm{ ci::Rectf{ ci::vec2( -12, -56), ci::vec2{-8, -73}}, 1, ci::Color{0.88f, 0.63f, 0.0f}},
+        ll_arm{ ci::Rectf{ ci::vec2( -12, -38), ci::vec2{-8, -55}}, 1, ci::Color{0.88f, 0.63f, 0.0f}},
+        l_hand{ ci::vec2(-10, -35), 2 , ci::Color{0.0f, 0.78f, 1.0f}},
+
+        ru_arm{ ci::Rectf{ ci::vec2( 8, -56), ci::vec2{12, -73}}, 1, ci::Color{0.88f, 0.63f, 0.0f}},
+        rl_arm{ ci::Rectf{ ci::vec2( 8, -38), ci::vec2{12, -55}}, 1, ci::Color{0.88f, 0.63f, 0.0f}},
+        r_hand{ ci::vec2(10, -35), 2 , ci::Color{0.0f, 0.78f, 1.0f}},
+
         padding{1}{
 
     TRACE("player object created")
@@ -66,149 +75,62 @@ void Player::drawFrontFacing(){
     gl::translate(position);
     gl::scale(scaleFactor, scaleFactor);
 
-
-    //gl::pushModelMatrix();
-    //gl::translate(head.position);
-
     TRACE("draw head")
     gl::color( head.colour );
     gl::drawSolidCircle(head.position, head.radius);
 
-    //gl::popModelMatrix();
-
-
     TRACE("draw body")
-    //gl::pushModelMatrix();
-    //gl::translate(body.position);
-    gl::color(0, 0, 0);
-    gl::drawLine(vec2(0,0), vec2(1000, 0));
-
     gl::color( body.colour);
     gl::drawSolidRoundedRect(body.bbox, body.roundCorners);
-    //gl::popModelMatrix();
 
-    //gl::pushModelMatrix();
-    //gl::translate(leg.position);
     TRACE("draw left upper leg")
     gl::color(lu_leg.colour);
-    gl::drawSolidRoundedRect(
-            ci::Rectf(lu_leg.bbox),
-            lu_leg.roundCorners
-            );
+    gl::drawSolidRoundedRect(lu_leg.bbox, lu_leg.roundCorners);
 
     TRACE("draw left lower leg")
     gl::color(ll_leg.colour);
-    gl::drawSolidRoundedRect(ll_leg.bbox, ll_leg.roundCorners );
-  /*
+    gl::drawSolidRoundedRect(ll_leg.bbox, ll_leg.roundCorners);
+
     TRACE("draw left foot")
-    gl::color(foot.colour);
-    gl::drawSolidEllipse(
-            ci::vec2(0, -foot.diameter.y),
-                    foot.diameter.x,
-                    foot.diameter.y
-            );
+    gl::color(l_foot.colour);
+    gl::drawSolidEllipse(l_foot.position, l_foot.radius.x, l_foot.radius.y);
 
-    gl::popModelMatrix();*/
-
-    //gl::pushModelMatrix();
-    //gl::translate((body.size.x - leg.size.x) / 2, 0);
     TRACE("draw right upper leg")
     gl::color(ru_leg.colour);
     gl::drawSolidRoundedRect(ru_leg.bbox, ll_leg.roundCorners);
 
-
     TRACE("draw right lower leg")
     gl::color(rl_leg.colour);
     gl::drawSolidRoundedRect(rl_leg.bbox, rl_leg.roundCorners);
-/*
-    TRACE("draw right foot")
-    gl::color(foot.colour);
-    gl::drawSolidEllipse(
-ci::vec2(
-        0,
-        -foot.diameter.x
-        ),
-        foot.diameter.x,
-        foot.diameter.y
-    );
-    gl::popModelMatrix();
 
-    gl::pushModelMatrix();
-    gl::translate((body.size.x - arm.size.x) / 2 - padding, 0);
+    TRACE("draw right foot")
+    gl::color(r_foot.colour);
+    gl::drawSolidEllipse(r_foot.position, r_foot.radius.x, r_foot.radius.y);
 
     TRACE("draw left upper arm")
-    gl::color(arm.colour);
-    gl::drawSolidRoundedRect(
-        ci::Rectf(
-                -arm.size.x / 2,
-                head.position.y + head.radius + 3 * padding,
-                arm.size.x,
-                arm.size.y),
-                arm.roundCorners
-    );
+    gl::color(lu_arm.colour);
+    gl::drawSolidRoundedRect(lu_arm.bbox, lu_arm.roundCorners);
 
     TRACE("draw left lower arm")
-    gl::color(arm.colour);
-    gl::drawSolidRoundedRect(
-            ci::Rectf(
-                    -arm.size.x / 2,
-                    head.position.y + head.radius + 4 * padding + arm.size.y,
-                    arm.size.x,
-                    arm.size.y),
-                    arm.roundCorners
-                    );
+    gl::color(ll_arm.colour);
+    gl::drawSolidRoundedRect(ll_arm.bbox, ll_arm.roundCorners);
 
     TRACE("draw left hand")
-    gl::color(hand.colour);
-    gl::drawSolidEllipse(
-            ci::vec2(
-                    0,
-                    head.position.y + head.radius + 5 * padding + 2 * arm.size.y + hand.diameter / 2
-                    ),
-                    hand.diameter,
-                    hand.diameter
-            );
-
-    gl::popModelMatrix();
-
-    gl::pushModelMatrix();
-    gl::translate((body.size.x + arm.size.x) / 2 + padding, 0 );
+    gl::color(l_hand.colour);
+    gl::drawSolidCircle(l_hand.position, l_hand.radius);
 
     TRACE("draw right upper arm")
-    gl::color(arm.colour);
-    gl::drawSolidRoundedRect(
-            ci::Rectf(
-                    -arm.size.x / 2,
-                    head.position.y + head.radius + 3 * padding,
-                    arm.size.x,
-                    arm.size.y
-                    ),
-                    arm.roundCorners
-            );
+    gl::color(ru_arm.colour);
+    gl::drawSolidRoundedRect(ru_arm.bbox, ru_arm.roundCorners);
+
     TRACE("draw right lower arm")
-    gl::color(arm.colour);
-    gl::drawSolidRoundedRect(
-            ci::Rectf(
-                    -arm.size.x / 2,
-                    head.position.y + head.radius + 4 * padding + arm.size.y,
-                    arm.size.x,
-                    arm.size.y
-                    ),
-                    arm.roundCorners
-            );
+    gl::color(rl_arm.colour);
+    gl::drawSolidRoundedRect(rl_arm.bbox, rl_arm.roundCorners);
 
     TRACE("draw right hand")
-    gl::color(hand.colour);
-    gl:: drawSolidEllipse(
-            ci::vec2(
-                    0,
-                    head.position.y + head.radius + 5 * padding + arm.size.y + hand.diameter / 2
-                    ),
-                    hand.diameter,
-                    hand.diameter
-            );
-    gl::popModelMatrix();
-    */
+    gl::color(r_hand.colour);
+    gl::drawSolidCircle(r_hand.position, r_hand.radius);
+
     gl::popModelMatrix();
 
 }

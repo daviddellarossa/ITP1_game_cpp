@@ -61,18 +61,21 @@ public:
     };
     class foot_{
     public:
-        ci::vec2 diameter;
+        ci::vec2 position;
+        ci::vec2 radius;
         ci::Color colour;
     };
     class arm_{
     public:
-        ci::vec2 size;
+        ci::Rectf bbox;
+//        ci::vec2 size;
         float roundCorners;
         ci::Color colour;
     };
     class hand_{
     public:
-        float diameter;
+        ci::vec2 position;
+        float radius;
         ci::Color colour;
     };
 
@@ -82,9 +85,15 @@ public:
     leg_ rl_leg;
     leg_ lu_leg;
     leg_ ll_leg;
-    arm_ arm;
-    foot_ foot;
-    hand_ hand;
+    arm_ ru_arm;
+    arm_ rl_arm;
+    arm_ lu_arm;
+    arm_ ll_arm;
+
+    foot_ l_foot;
+    foot_ r_foot;
+    hand_ l_hand;
+    hand_ r_hand;
 
 };
 
