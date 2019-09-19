@@ -11,7 +11,10 @@ include( "${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake" )
 ci_make_app(
         SOURCES     ${APP_PATH}/src/main.cpp
                     ${APP_PATH}/src/Game.cpp
-                    ${APP_PATH}/src/Player.cpp
+                    ${APP_PATH}/src/Player/Player.cpp
+                    ${APP_PATH}/src/Player/PlayerDrawStandingFront.cpp
+                    ${APP_PATH}/src/Player/PlayerDrawStandingRight.cpp
+                    ${APP_PATH}/src/Player/PlayerDrawStandingLeft.cpp
         INCLUDES ${APP_PATH}/include/
         CINDER_PATH ${CINDER_PATH}
 )

@@ -6,6 +6,7 @@
 
 using namespace ci;
 using namespace ci::app;
+using namespace ddr;
 
 void prepareSettings( Game::Settings* settings )
 {

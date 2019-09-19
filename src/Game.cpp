@@ -5,6 +5,9 @@
 #include <algorithm>
 #include "Game.h"
 
+using namespace ddr;
+using namespace ddr::player;
+
 Game::Game(): App(),
               floorPosY{this->getWindowHeight() * 3/4}{
 
