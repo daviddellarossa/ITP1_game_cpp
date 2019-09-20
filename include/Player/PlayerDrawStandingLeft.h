@@ -17,6 +17,7 @@ namespace ddr::player {
         ~PlayerDrawStandingLeft() = default;
 
         void draw() override;
+
     };
 
 }

@@ -14,89 +14,96 @@ using namespace ddr::player;
 PlayerDrawStandingFront::PlayerDrawStandingFront(float x, float y, float scaleFactor)
 
 {
-    this->position = {x, y};
-    this->scaleFactor = {scaleFactor};
-    this->head = { ci::vec2{0, -88}, 11, ci::Color{0.0f, 0.1f, 1.0f}};
-    this->body = { ci::Rectf{ vec2{-7, -40}, vec2{ 7, -76}}, 3, ci::Color{1.0f, 0.39f, 0.0f}};
-    this->lu_leg = { ci::Rectf{ vec2{-6, -21}, vec2{ -2, -39}}, 3, ci::Color{0.27f, 0.35f, 0.65f}};
-    this->ll_leg = { ci::Rectf{ci::vec2(-6, -3), ci::vec2(-2, -20)}, 3, ci::Color{0.27f, 0.35f, 0.65f}};
-    this->l_foot = { ci::vec2(-4, -1), ci::vec2( 3, 1) , ci::Color{0.78f, 0.0f, 0.20f}};
+    PlayerDrawFrame frame;
+    
+    frame.position = {x, y};
+    frame.scaleFactor = {scaleFactor};
 
-    this->ru_leg = { ci::Rectf{ci::vec2(2, -21), ci::vec2(6, -39)}, 3, ci::Color{0.27f, 0.35f, 0.65f}};
-    this->rl_leg = { ci::Rectf{ci::vec2(2, -3), ci::vec2(6, -20)}, 3, ci::Color{0.27f, 0.35f, 0.65f}};
-    this->r_foot = { ci::vec2(4, -1), ci::vec2( 3, 1) , ci::Color{0.78f, 0.0f, 0.20f}};
+    frame.head = std::move(BodyPart(Position{0, -88}, Radius{11}, ci::Color{0.0f, 0.1f, 1.0f}, 0, 0));
+    frame.body = std::move(BodyPart(BoundingBox{ vec2{-7, -40}, vec2{ 7, -76}}, Radius{0}, ci::Color{1.0f, 0.39f, 0.0f}, 0, 3));
 
-    this->lu_arm = { ci::Rectf{ ci::vec2( -12, -56), ci::vec2{-8, -73}}, 1, ci::Color{0.88f, 0.63f, 0.0f}};
-    this->ll_arm = { ci::Rectf{ ci::vec2( -12, -38), ci::vec2{-8, -55}}, 1, ci::Color{0.88f, 0.63f, 0.0f}};
-    this->l_hand = { ci::vec2(-10, -35), 2 , ci::Color{0.0f, 0.78f, 1.0f}};
+    frame.luLeg =  std::move(BodyPart(BoundingBox{vec2{-6, -21}, vec2{-2, -39}}, Radius{}, ci::Color{0.27f, 0.35f, 0.65f}, 0, 3));
+    frame.llLeg =  std::move(BodyPart(BoundingBox{ci::vec2(-6, -3), ci::vec2(-2, -20)}, Radius{}, ci::Color{0.27f, 0.35f, 0.65f}, 0, 3));
+    frame.lFoot = std::move(BodyPart(Position{-4, -1}, Radius{3, 1}, ci::Color{0.78f, 0.0f, 0.20f}, 0, 0));
 
-    this->ru_arm = { ci::Rectf{ ci::vec2( 8, -56), ci::vec2{12, -73}}, 1, ci::Color{0.88f, 0.63f, 0.0f}};
-    this->rl_arm = { ci::Rectf{ ci::vec2( 8, -38), ci::vec2{12, -55}}, 1, ci::Color{0.88f, 0.63f, 0.0f}};
-    this->r_hand = { ci::vec2(10, -35), 2 , ci::Color{0.0f, 0.78f, 1.0f}};
+    frame.ruLeg =  std::move(BodyPart(BoundingBox{ci::vec2(2, -21), ci::vec2(6, -39)}, Radius{}, ci::Color{0.27f, 0.35f, 0.65f}, 0, 3));
+    frame.rlLeg =  std::move(BodyPart(BoundingBox{ci::vec2(2, -3), ci::vec2(6, -20)}, Radius{}, ci::Color{0.27f, 0.35f, 0.65f}, 0, 3));
+    frame.rFoot = std::move(BodyPart(Position{4, -1}, Radius{3, 1}, ci::Color{0.78f, 0.0f, 0.20f}, 0, 0));
+
+    frame.luArm =  std::move(BodyPart(BoundingBox{ci::vec2(-12, -56), ci::vec2{-8, -73}}, Radius{}, ci::Color{0.88f, 0.63f, 0.0f}, 0, 3));
+    frame.llArm =  std::move(BodyPart(BoundingBox{ci::vec2(-12, -38), ci::vec2{-8, -55}}, Radius{}, ci::Color{0.88f, 0.63f, 0.0f}, 0, 3));
+    frame.lHand = std::move(BodyPart(Position{-10, -35}, Radius{2}, ci::Color{0.0f, 0.78f, 1.0f}, 0, 0));
+
+    frame.ruArm =  std::move(BodyPart(BoundingBox{ci::vec2(8, -56), ci::vec2{12, -73}}, Radius{}, ci::Color{0.88f, 0.63f, 0.0f}, 0, 3));
+    frame.rlArm =  std::move(BodyPart(BoundingBox{ci::vec2(8, -38), ci::vec2{12, -55}}, Radius{}, ci::Color{0.88f, 0.63f, 0.0f}, 0, 3));
+    frame.rHand = std::move(BodyPart(Position{10, -35}, Radius{2}, ci::Color{0.0f, 0.78f, 1.0f}, 0, 0));
+
+    frames.push_back(frame);
 }
 
 void PlayerDrawStandingFront::draw() {
 
+    auto& frame = frames[0];
     TRACE("draw front facing")
     gl::pushModelMatrix();
-    gl::translate(position);
-    gl::scale(scaleFactor, scaleFactor);
+    gl::translate(frame.position);
+    gl::scale(frame.scaleFactor, frame.scaleFactor);
 
     TRACE("draw head")
-    gl::color( head.colour );
-    gl::drawSolidCircle(head.position, head.radius);
+    gl::color( frame.head.colour );
+    gl::drawSolidCircle(frame.head.position, frame.head.radius.x);
 
     TRACE("draw body")
-    gl::color( body.colour);
-    gl::drawSolidRoundedRect(body.bbox, body.roundCorners);
+    gl::color( frame.body.colour);
+    gl::drawSolidRoundedRect(frame.body.bbox, frame.body.roundCorners);
 
     TRACE("draw left upper leg")
-    gl::color(lu_leg.colour);
-    gl::drawSolidRoundedRect(lu_leg.bbox, lu_leg.roundCorners);
+    gl::color(frame.luLeg.colour);
+    gl::drawSolidRoundedRect(frame.luLeg.bbox, frame.luLeg.roundCorners);
 
     TRACE("draw left lower leg")
-    gl::color(ll_leg.colour);
-    gl::drawSolidRoundedRect(ll_leg.bbox, ll_leg.roundCorners);
+    gl::color(frame.llLeg.colour);
+    gl::drawSolidRoundedRect(frame.llLeg.bbox, frame.llLeg.roundCorners);
 
     TRACE("draw left foot")
-    gl::color(l_foot.colour);
-    gl::drawSolidEllipse(l_foot.position, l_foot.radius.x, l_foot.radius.y);
+    gl::color(frame.lFoot.colour);
+    gl::drawSolidEllipse(frame.lFoot.position, frame.lFoot.radius.x, frame.lFoot.radius.y);
 
     TRACE("draw right upper leg")
-    gl::color(ru_leg.colour);
-    gl::drawSolidRoundedRect(ru_leg.bbox, ll_leg.roundCorners);
+    gl::color(frame.ruLeg.colour);
+    gl::drawSolidRoundedRect(frame.ruLeg.bbox, frame.ruLeg.roundCorners);
 
     TRACE("draw right lower leg")
-    gl::color(rl_leg.colour);
-    gl::drawSolidRoundedRect(rl_leg.bbox, rl_leg.roundCorners);
+    gl::color(frame.rlLeg.colour);
+    gl::drawSolidRoundedRect(frame.rlLeg.bbox, frame.rlLeg.roundCorners);
 
     TRACE("draw right foot")
-    gl::color(r_foot.colour);
-    gl::drawSolidEllipse(r_foot.position, r_foot.radius.x, r_foot.radius.y);
+    gl::color(frame.rFoot.colour);
+    gl::drawSolidEllipse(frame.rFoot.position, frame.rFoot.radius.x, frame.rFoot.radius.y);
 
     TRACE("draw left upper arm")
-    gl::color(lu_arm.colour);
-    gl::drawSolidRoundedRect(lu_arm.bbox, lu_arm.roundCorners);
+    gl::color(frame.luArm.colour);
+    gl::drawSolidRoundedRect(frame.luArm.bbox, frame.luArm.roundCorners);
 
     TRACE("draw left lower arm")
-    gl::color(ll_arm.colour);
-    gl::drawSolidRoundedRect(ll_arm.bbox, ll_arm.roundCorners);
+    gl::color(frame.llArm.colour);
+    gl::drawSolidRoundedRect(frame.llArm.bbox, frame.llArm.roundCorners);
 
     TRACE("draw left hand")
-    gl::color(l_hand.colour);
-    gl::drawSolidCircle(l_hand.position, l_hand.radius);
+    gl::color(frame.lHand.colour);
+    gl::drawSolidCircle(frame.lHand.position, frame.lHand.radius.x);
 
     TRACE("draw right upper arm")
-    gl::color(ru_arm.colour);
-    gl::drawSolidRoundedRect(ru_arm.bbox, ru_arm.roundCorners);
+    gl::color(frame.ruArm.colour);
+    gl::drawSolidRoundedRect(frame.ruArm.bbox, frame.ruArm.roundCorners);
 
     TRACE("draw right lower arm")
-    gl::color(rl_arm.colour);
-    gl::drawSolidRoundedRect(rl_arm.bbox, rl_arm.roundCorners);
+    gl::color(frame.rlArm.colour);
+    gl::drawSolidRoundedRect(frame.rlArm.bbox, frame.rlArm.roundCorners);
 
     TRACE("draw right hand")
-    gl::color(r_hand.colour);
-    gl::drawSolidCircle(r_hand.position, r_hand.radius);
+    gl::color(frame.rHand.colour);
+    gl::drawSolidCircle(frame.rHand.position, frame.rHand.radius.x);
 
     gl::popModelMatrix();
 
